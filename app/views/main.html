@@ -1,0 +1,322 @@
+     
+<div layout="row" layout-align="space-between stretch">
+<section layout="row" flex 
+  layout-margin layout-padding layout-align="start stretch">
+  <md-sidenav 
+    class="md-sidenav-left"
+    md-component-id="left"
+    md-is-locked-open="$mdMedia('gt-md')"
+    md-disable-backdrop
+    md-whiteframe="4"
+    ng-show="navbool"
+    
+    >
+    <md-toolbar class="md-theme-indigo">
+      <h1 class="md-toolbar-tools">Statistiques</h1>
+    </md-toolbar>
+    <md-content  ng-controller="LeftCtrl" 
+      layout="column" layout-align="space-between stretch">
+      <span flex="50"></span>
+      <md-input-container class="md-block" flex-gt-sm
+        layout-align="space-between stretch">
+          <label>Categorie</label>
+          <md-select ng-model="cate" ng-multiple="true" required name="type">
+            <md-option ng-repeat="t in types" ng-value="t">
+                {{t.type_name}}
+               
+            </md-option>
+          </md-select>
+           <!-- {{type.type_name}}       -->  
+          <!-- <div ng-messages="projectForm.type.$error">
+            <div ng-message="required">This is required.</div>
+          </div> -->
+      </md-input-container>
+      <span flex="50"></span>
+      <md-input-container class="md-block" flex-gt-sm
+        layout-align="space-between stretch">
+          <label> zone</label>
+          <md-select ng-model="zon" ng-multiple="true" required name="type">
+             
+            <md-option ng-repeat="c in categories" ng-value="c">
+                {{c.name}}     
+            </md-option>
+          </md-select> 
+
+               
+          <!-- <div ng-messages="projectForm.type.$error">
+          <div ng-message="required">This is required.</div>
+          </div> -->
+      </md-input-container>
+      <span flex="50"></span>
+      <md-input-container class="md-block" flex-gt-sm
+        layout-align="space-between stretch">
+          <label> agents</label>
+          <md-select ng-model="agent" ng-multiple="true" required name="type">
+             
+            <md-option ng-repeat="c in agents" ng-value="c">
+                {{c.name}}     
+            </md-option>
+          </md-select> 
+
+               
+          <!-- <div ng-messages="projectForm.type.$error">
+          <div ng-message="required">This is required.</div>
+          </div> -->
+      </md-input-container>
+      
+      <span flex="50"></span>
+      <div flex-xs flex="50">
+        <p>Etat <span class="radioValue">{{ etat }}</span> </p>
+        <md-radio-group ng-model="etat">
+          <md-radio-button value="Tout" class="md-primary">Tout</md-radio-button>
+          <md-radio-button value="True"> Terminée </md-radio-button>
+          <md-radio-button value="False">En cours</md-radio-button>
+        </md-radio-group>
+            
+      </div>
+      <span flex="50"></span>
+      <div  flex-xs flex="50">
+        <md-datepicker ng-model="debut" md-placeholder="debut"></md-datepicker>
+        <md-datepicker ng-model="fin" md-placeholder="fin"></md-datepicker>
+      </div>
+      
+      
+
+          <md-button ng-click="Submitstat()" class="md-raised md-primary" >
+            Submit
+          </md-button>
+          <p>
+            {{stats_donnees}}
+          </p>
+    </md-content>
+  </md-sidenav>
+  
+  <div  ng-show="leftbool">
+    <div layout="column" layout-align="space-around stretch"
+           ng-show="leftbool">
+          
+            <div layout="row" >
+              <!-- <p>Critères: {{critere}} </p> -->
+              <md-radio-group ng-model="critere">
+                 
+                  <md-radio-button ng-repeat=" c in criteres" ng-value="c.value"> {{c.name}} </md-radio-button>
+                  
+                </md-radio-group>     
+            </div>
+            <span flex></span>
+            <div layout="row" >
+               <!-- <p>format: {{format}} </p>  -->
+              <md-radio-group ng-model="format">
+                 
+                  <md-radio-button ng-repeat=" f in formats" ng-value="f.value"> {{f.name}} </md-radio-button>
+                  
+                </md-radio-group>     
+            </div>
+            <div></div>
+
+    
+        </div>
+  </div>
+  <div flex ></div>
+    
+  <div id="map" ng-cloak ng-init="Init()" > 
+    <ng-map  style="width: 100%; height:90vh;" default-style="false"
+      scrollwheel="false" center="current location" >
+      <custom-control id="home" position="TOP_RIGHT" index="1" ng-show="true" >
+        <div layout="row" flex layout-padding></div>
+        <div layout="row" >             
+          <div> 
+            <md-toolbar class="md-menu-toolbar" layout-fill>
+              <md-menu-bar>
+                
+                <md-menu ng-show="vm.pres && !vm.drawvis" >
+                  <button ng-click="$mdOpenMenu()" >
+                    Client
+                  </button>
+                  <md-menu-content width="2" md-menu-align-target>
+                    <md-menu-item>
+                      <md-checkbox class="green" aria-label="Select All"
+                               ng-checked="isChecked(selected,types)"
+                               md-indeterminate="isIndeterminate(selected,types)"
+                               ng-click="toggleAll(selected,types,'selected')">Afficher Tous
+                      </md-checkbox>
+                    </md-menu-item>
+                    <md-menu-item ng-repeat="item in types" ng-if="item">
+                        <md-checkbox class="green"  ng-checked="exists(item, selected)" ng-click="toggle(item, selected,'selected')" >
+                       {{ item.type_name }}
+                        </md-checkbox>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+                <span></span>
+                <md-menu ng-show="vm.pres && !vm.drawvis " >
+                  <button  ng-click="$mdOpenMenu()" >
+                    Zones
+                  </button>
+                  <md-menu-content width="2" md-menu-align-target>
+                    <md-menu-item>
+                      <md-checkbox class="green" aria-label="Select All"
+                               ng-checked="isChecked(selected2,categories)"
+                               md-indeterminate="isIndeterminate(selected2,categories)"
+                               ng-click="toggleAll(selected2,categories,'selected2')">Afficher Tous
+                      </md-checkbox>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item ng-repeat="item in categories" ng-if="item">
+                        <md-checkbox class="green" ng-checked="exists(item, selected2)" ng-click="toggle(item, selected2,'selected2')" >
+                       {{ item.name }}
+                        </md-checkbox>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+                <span></span>
+                <md-menu>
+                   <button  ng-click="vm.drawvis ? vm.draw(false) : vm.draw(true)" ng-show="vm.pres">Dessiner</button>
+                   <span></span>
+                </md-menu>
+                <span></span>
+                <md-menu ng-show="false">
+                  <button  ng-click="$mdOpenMenu()" ng-show="vm.prog ">Agents</button>
+                  <md-menu-content width="2" md-menu-align-target>
+                    <md-menu-item>
+                      <md-checkbox class="green" aria-label="Select All"
+                               ng-checked="isChecked(selected3,agents)"
+                               md-indeterminate="isIndeterminate(selected3,agents)"
+                               ng-click="toggleAll(selected3,agents,'selected3')">Afficher Tous
+                      </md-checkbox>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item ng-repeat="item in agents" ng-if="item">
+                        <md-checkbox class="green"  ng-checked="exists(item, selected3)" ng-click="toggle(item, selected3,'selected3')" >
+                       {{ item.name }}
+                        </md-checkbox>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+                <span></span>
+                <md-menu ng-show="false">
+                  <button  ng-click="$mdOpenMenu()" ng-show="vm.prog ">Places</button>
+                  <md-menu-content  width="2" md-menu-align-target>
+                    <md-menu-item ng-repeat="item in missions" ng-click="null">
+                      <div  layout="column" md-ink-ripple class="md-clickable" >
+                        <h3>{{ item.libelle }}</h3>
+                       
+                      </div>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>                
+                  </md-menu-content>
+                </md-menu>                
+                <span></span>
+                <md-menu ng-repeat="m in vm.menu | filter: {hsm:'true'}" ng-show="vm.prog "> 
+                  <button   ng-click="vm.sousmenu(m.id); $mdOpenMenu()" >
+                      {{m.name}}
+                  </button>
+                  <md-menu-content width="2">
+                    <md-menu-item ng-repeat="item in vm.mymenu" >
+                      <md-button ng-click="vm.announceClick($index+1,item,$event)">{{item.name}}</md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+                <span flex></span>
+                <md-menu>
+
+                  <button  ng-click=" navbool ? shownav(false) : shownav(true)"
+                   class="md-raised">Reporting</button> 
+                </md-menu>
+                <span flex></span>
+                <md-menu>
+
+                  <button  ng-click="vm.prog ? vm.initProg(false): vm.initProg(true) " class="md-raised">Programme</button> 
+                </md-menu>
+                <span flex></span>
+                <md-menu >
+
+                  <button ng-click="vm.pres ? vm.initPres(false): vm.initPres(true) " class="md-raised">Présentation</button> 
+                </md-menu>
+                <span flex></span>
+                <md-menu ng-show="false">
+                  <button   class="md-raised" ng-click="Redirect(ADMIN_URL)">
+                  Admin
+                  </button> 
+                </md-menu>
+              </md-menu-bar>
+            </md-toolbar> 
+          </div>
+          <div layout-margin></div>
+        </div>
+        
+        
+      </custom-control> 
+
+      
+      <custom-control  id="ch" position="BOTTOM_LEFT" index="2" ng-show="statbon">
+        <div layout="row" >
+          
+          
+            <nvd3 options='opti' data='dat'
+             class="with-3d-shadow with-transitions">   
+           
+          </div>
+
+        </div>
+
+        
+      </custom-control>
+        
+       
+    </ng-map>
+  </div>
+</section>
+
+  </div>
+<div layout="column" layout-align="space-between stretch">
+  <div flex layout-margin layout-padding></div>
+ 
+  <!-- <div layout="row"  ng-show="leftbool">
+    <div layout="row" >
+      <p>Critères: {{critere}} </p>
+      <md-radio-group ng-model="critere">
+         
+          <md-radio-button ng-repeat=" c in criteres" ng-value="c.value"> {{c.name}} </md-radio-button>
+          
+        </md-radio-group>     
+    </div>
+    <div layout="row" >
+      <p>format: {{format}} </p>
+      <md-radio-group ng-model="format">
+         
+          <md-radio-button ng-repeat=" f in formats" ng-value="f.value"> {{f.name}} </md-radio-button>
+          
+        </md-radio-group>     
+    </div>
+      <div></div>
+
+    <div ng-show="false" ng-show="statbon" flex >
+      <nvd3 options='opti' data='dat'
+           class="with-3d-shadow with-transitions">   
+      </nvd3>
+     
+    </div>
+  </div> -->
+  <div ng-cloak ng-if="AfficheProg">
+    
+      <md-tabs md-selected="selectedtab" md-enable-disconnect
+        md-dynamic-height md-border-bottom md-autoselect md-swipe-content ng-model="tab">
+        <md-tab  ng-repeat=" tab in Tabs" 
+          label="{{tab.title}}" 
+          ng-disabled="tab.disabled"
+         md-on-select="TabClicked(tab)">
+          <div ng-include="tab.content"  ></div>
+            
+        </md-tab>
+      </md-tabs>  
+      <p  ng-show="false">selected tab: {{tab}}</p> 
+  </div>
+  
+</div>
+
+
+  
+
+
+ 

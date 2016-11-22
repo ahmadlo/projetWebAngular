@@ -1,0 +1,29 @@
+<div layout="column" layout-align="space-around" ng-cloak 
+	ng-controller="ListeController" ng-init="Init()">
+	<form>
+		<md-content>
+			
+			<md-list>
+
+
+					
+				<md-list-item ng-model="programmes.p" 
+					ng-repeat="programme in programmes.p" class="secondary-button-padding">
+			        <div layout="column" layout-margin>
+			        	<h3>{{ programme.libelle }}</h3>
+			        	<div layout="row" layout-margin>
+			        		<p ng-repeat="id in programme.lieux">
+			        			{{clis[id].b.cl_name}}
+			        		</p>
+			        	</div>
+			        	
+			        </div>
+    				<md-button class="md-secondary" ng-click="ModifProgramme($event,programme)">Modifier</md-button>
+				</md-list-item>
+			</md-list>
+			
+
+
+		</md-content>
+	</form>
+</div>

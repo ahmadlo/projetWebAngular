@@ -1,0 +1,56 @@
+
+<form name="projectForm" id="formajt" ng-show="is_zone">
+	<md-toolbar>
+		<div class="md-toolbar-tools" layout-wrap  layout-align="center">
+			<span flex="50" > <h1>{{form.title}}</h1></span>
+		</div>
+	</md-toolbar>
+	<md-dialog-content>
+
+		<div class="md-dialog-content">
+			<span flex="50"></span>
+			<md-input-container class="md-block" flex-gt-sm>
+				<label>nom Zone</label>
+				<input ng-model="zone.name"  required name="lieu">
+				<div ng-messages="projectForm.lieu.$error">
+				<div ng-message="required">This is required.</div>
+				</div>
+			</md-input-container>
+			<span flex="50"></span>
+			<md-input-container class="md-block" flex-gt-sm>
+				<label> description</label>
+				<input ng-model="zone.description"  required name="desc" >
+				<div ng-messages="projectForm.desc.$error">
+				<div ng-message="required">This is required.</div>
+				</div>
+			</md-input-container>
+			<span flex="50"></span>
+			<md-input-container class="md-block" flex-gt-sm>
+				<label> Categorie</label>
+				<md-select ng-model="zone.categorie" required name="type">
+					 
+					<md-option ng-repeat="c in categories" ng-value="c">
+					    {{c.name}}     
+					</md-option>
+				</md-select> 
+
+				     
+				<div ng-messages="projectForm.type.$error">
+				<div ng-message="required">This is required.</div>
+				</div>
+			</md-input-container>
+		</div>
+	</md-dialog-content>
+	<span flex="50"></span>
+	<md-dialog-actions layout="row">
+		<md-button class="md-raised md-primary md-hue-1"
+		 ng-click="zone_modif ? ModifZone(zone,paths,shape) : AjoutZone(zone,map,paths,aa) ">          
+		<md-icon md-svg-src="images/icons/ic_account_box_w.svg"></md-icon>
+		{{form.valider}}  
+		</md-button>
+		<md-button class="md-raised md-warn" ng-click="zone_modif ? Suppress($event, zone,shape) : Annuler($event)">          
+		<md-icon md-svg-src="images/icons/ic_close_white_24px.svg"></md-icon>
+		{{form.annuler}}  
+		</md-button>
+	</md-dialog-actions>
+</form>

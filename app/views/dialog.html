@@ -1,0 +1,440 @@
+<div aria-label="Mango (Fruit)"  layout-fill ng-cloak 
+  ng-controller="DialogController">
+  <form>
+    <!-- <md-toolbar>
+      <div class="md-toolbar-tools" >
+        <span flex="50"> <h1 >{{form.title}}</h1></span>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="Caancel()">
+          <md-icon md-svg-src="images/icons/ic_close_white_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar> -->
+    <md-content>
+      <div class="md-dialog-content" layout="column" layout-fill layout-align="space-between stretch">
+        <div layout="row"  layout-align="start" layout-padding layout-margin>
+          <md-list  >
+            <md-subheader class="md-no-sticky">Zones</md-subheader>
+            <md-divider ></md-divider>
+            <md-list-item >
+              <div class="md-list-item-text" layout="column">
+                <md-checkbox
+                    ng-checked="isChecked(zoneselected,zones)"
+                   md-indeterminate="isIndeterminate(zoneselected,zones)"
+                   ng-click="toggleAll(zoneselected,zones,'zoneselected')">Select All
+                </md-checkbox>
+              </div>
+            </md-list-item>
+            <md-list-item  ng-repeat="zone in zones">
+              <div class="md-list-item-text" layout="column">         
+                <md-checkbox class="green"
+                  ng-checked="exists(zone, zoneselected)"
+                  ng-click="toggle(zone, zoneselected,'zoneselected')"> 
+                  <p> {{ zone.name  }} </p>
+                </md-checkbox>
+              </div>                        
+            </md-list-item>
+          </md-list>
+          <md-list  >
+            <md-subheader class="md-no-sticky">Catégorie</md-subheader>
+            <md-divider ></md-divider>
+            <md-list-item >
+              <div class="md-list-item-text" layout="column">
+                <md-checkbox
+                    ng-checked="isChecked(tyselected,types)"
+                   md-indeterminate="isIndeterminate(tyselected,types)"
+                   ng-click="toggleAll(tyselected,types,'tyselected')">Select All
+                </md-checkbox>
+              </div>
+            </md-list-item>
+            <md-list-item  ng-repeat="type in types">
+              <div class="md-list-item-text" layout="column">         
+                <md-checkbox class="green"
+                  ng-checked="exists(type, tyselected)"
+                  ng-click="toggle(type, tyselected,'tyselected')"> 
+                  <p ng-style="{color:type.couleur}"> {{ type.type_name  }} </p>
+                </md-checkbox>
+              </div>                        
+            </md-list-item>
+          </md-list>
+          <md-list  >
+            <md-subheader class="md-no-sticky">Agents</md-subheader>
+            <md-divider ></md-divider>
+            <md-list-item > 
+              <div class="md-list-item-text" layout="column">
+                <md-checkbox
+                    ng-checked="isChecked(agselected,agents)"
+                   md-indeterminate="isIndeterminate(agselected,agents)"
+                   ng-click="toggleAll(agselected,agents,'agselected')">Select All
+                </md-checkbox>
+              </div>
+
+            </md-list-item>
+           
+            <md-list-item  ng-repeat="agent in agents">
+              <div class="md-list-item-text" layout="column">
+                <md-checkbox class="green"  
+                  ng-checked="exists(agent, agselected)"
+                  ng-click="toggle(agent, agselected,'agselected')">  
+                  <p> {{ agent.name  }}</p> 
+                </md-checkbox> 
+              </div>
+            </md-list-item>
+          </md-list>
+        </div>
+        <div layout="row" layout-align="start" layout-padding layout-margin>
+          <md-list>
+           <md-subheader class="md-no-sticky">Timing</md-subheader>
+            <md-divider ></md-divider>
+            <md-list-item> 
+              <div class="md-list-item-text" layout="column">
+                <p ng-show="false">Selected Value: <span class="radioValue">{{ times.name }}</span></p>
+
+                <md-radio-group ng-model="times" ng-change="onChange(times)" class="md-primary">
+                  <md-radio-button ng-repeat="time in timing"
+                         ng-value="time"
+                         ng-class="{'md-align-top-left': $index==1}" >{{time.name}}
+                  </md-radio-button>
+                </md-radio-group>
+              </div>
+            </md-list-item>
+            <md-divider ></md-divider>
+            
+          </md-list>
+          <md-list ng-show="times.isAnnuel || times.isMensuel">
+           <md-subheader class="md-no-sticky">Modes</md-subheader>
+            <md-divider ></md-divider>
+            <div layout="row" >
+              <md-list-item> 
+                <div class="md-list-item-text" layout="column">
+                  <p ng-show="false">Selected Value: <span class="radioValue">{{ mod.name }}</span></p>
+
+                  <md-radio-group ng-model="mod" class="md-primary" ng-change="onModeChange(mod,$event)">
+                    <md-radio-button ng-repeat="mode in modes"
+                           ng-value="mode"
+                           
+                           ng-class="{'md-align-top-left': $index==1}" >{{mode.name}}
+                    </md-radio-button>
+                  </md-radio-group>
+                </div>
+              </md-list-item>
+              <span flex></span>
+              <md-list-item ng-show="times.isAnnuel && mod.isHebdo"> 
+                <div class="md-list-item-text" layout="column">
+                  <p ng-show="false">Selected Value: <span class="radioValue">{{ Mod2.isMultiple }}</span></p>
+
+                  <md-radio-group ng-model="Mod2" class="md-primary" ng-change="onModeChange(Mod2,$event)">
+                    <md-radio-button ng-repeat="mode in Modes"
+                           ng-value="mode"
+                          
+                           ng-class="{'md-align-top-left': $index==2}" >{{mode.name}}
+                    </md-radio-button>
+                  </md-radio-group>
+                </div>
+              </md-list-item>
+            </div>
+            
+             <md-divider ></md-divider>
+            <md-list-item> 
+              <div class="md-list-item-text" layout="column">
+                <p ng-show="false">Selected Value: <span class="radioValue">{{ Mod.isMultiple }}</span></p>
+
+                <md-radio-group ng-model="Mod" class="md-primary" ng-change="onModeChange(Mod,$event)">
+                  <md-radio-button ng-repeat="mode in Modes"
+                         ng-value="mode"
+                        
+                         ng-class="{'md-align-top-left': $index==2}" >{{mode.name}}
+                  </md-radio-button>
+                </md-radio-group>
+              </div>
+            </md-list-item>
+          </md-list>
+          <div layout="row" layout-align="space-around start">
+            <md-input-container class="md-block" flex-gt-sm ng-show="times.isAnnuel ">
+              <label>Mois</label>
+              <md-select ng-model="m"  ng-multiple="{{Mod.isMultiple}}"  
+              md-on-close="{{Mod.isMultiple}}?  close({{Mod.isMultiple}}):close(!{{Mod.isMultiple}})" >
+              <md-option ng-repeat="m in mois" ng-value="m">
+                {{m.name}}
+               
+              </md-option>
+              </md-select>         
+            </md-input-container>
+            <md-input-container class="md-block"  flex-gt-sm ng-show="mod.isHebdo || times.isHebdo">
+              <label>Jours</label>
+              <md-select ng-model="j" ng-multiple="{{Mod2.isMultiple}}"  
+               md-on-close="{{Mod2.isMultiple}}?  close({{Mod2.isMultiple}}):close(!{{Mod2.isMultiple}})">
+              <md-option ng-repeat="j in jours" ng-value="j">
+                {{j.name}}
+               
+              </md-option>
+              </md-select>         
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm ng-show="mod.isJour">
+              <label>Jours</label>
+              <md-select ng-model="d"  ng-multiple="true"  md-on-close="close(false)">
+                <md-option ng-repeat="d in days" ng-value="d">
+                  {{d}}
+                 
+                </md-option>
+              </md-select>         
+            </md-input-container>
+            
+            <md-input-container class="md-block" flex-gt-sm ng-show="mod.isHebdo " >
+              <label>Occurences</label>
+              <md-select ng-model="o" ng-multiple="{{Mod.isMultiple}}" 
+                md-on-close="close(false)">
+                <md-option ng-repeat="o in occurences" ng-value="o">
+                  {{o.name}}
+                 
+                </md-option>
+              </md-select>         
+              
+            </md-input-container>
+            
+          </div>
+        </div>
+        <div layout="row">
+          <md-input-container>
+            <label>Taches</label>
+            <md-select ng-model="typem" ng-multiple="true">
+              <md-option ng-repeat="typem in typemissions" ng-value="typem" >
+                {{typem.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <p ng-show="false">Selected Value: <span class="radioValue">{{ choix }}</span></p>
+      </div>
+    </md-content>
+    <div layout="row">
+      <md-button class="md-raised md-primary md-hue-1" ng-click="Programmer(zoneselected,tyselected,agselected,choix,times,Mod,mod,typem,mark)">
+        <md-icon md-svg-src="images/icons/ic_account_box_w.svg"></md-icon>{{form.valider}}  
+      </md-button>
+      <md-button class="md-raised md-warn" ng-click="Init();answer('not useful')">          
+        <md-icon md-svg-src="images/icons/ic_close_white_24px.svg"></md-icon>{{form.annuler}}
+      </md-button>
+      <md-button class="md-raised md-primary md-hue-1" ng-click="InitTiming()">
+        <md-icon md-svg-src="images/icons/ic_close_white_24px.svg"></md-icon>Reset
+      </md-button>
+    </div>
+  </form>
+</div>
+<!--<div aria-label="Mango (Fruit)"  ng-cloak  layout-fill 
+  style="position: relative;" ng-show="AfficheProg">
+  <form  ng-init="Init()">
+    <md-toolbar>
+      <div class="md-toolbar-tools" >
+        <span flex="50"> <h1 >{{form.title}}</h1></span>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="images/icons/ic_close_white_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <div class="md-dialog-content" layout="column"   layout-fill layout-align="space-between stretch">
+        <div layout="row"  layout-align="space-around start">
+          <md-list  >
+            <md-subheader class="md-no-sticky">Zones</md-subheader>
+            <md-divider ></md-divider>
+            <md-list-item >
+              <div class="md-list-item-text" layout="column">
+                <md-checkbox
+                    ng-checked="isChecked(zoneselected,zones)"
+                   md-indeterminate="isIndeterminate(zoneselected,zones)"
+                   ng-click="toggleAll(zoneselected,zones,'zoneselected')">Select All
+                </md-checkbox>
+              </div>
+            </md-list-item>
+            <md-list-item  ng-repeat="zone in zones">
+              <div class="md-list-item-text" layout="column">         
+                <md-checkbox class="green"
+                  ng-checked="exists(zone, zoneselected)"
+                  ng-click="toggle(zone, zoneselected,'zoneselected')"> 
+                  <p> {{ zone.name  }} </p>
+                </md-checkbox>
+              </div>                        
+            </md-list-item>
+          </md-list>
+          <md-list  >
+            <md-subheader class="md-no-sticky">Catégorie</md-subheader>
+            <md-divider ></md-divider>
+            <md-list-item >
+              <div class="md-list-item-text" layout="column">
+                <md-checkbox
+                    ng-checked="isChecked(tyselected,types)"
+                   md-indeterminate="isIndeterminate(tyselected,types)"
+                   ng-click="toggleAll(tyselected,types,'tyselected')">Select All
+                </md-checkbox>
+              </div>
+            </md-list-item>
+            <md-list-item  ng-repeat="type in types">
+              <div class="md-list-item-text" layout="column">         
+                <md-checkbox class="green"
+                  ng-checked="exists(type, tyselected)"
+                  ng-click="toggle(type, tyselected,'tyselected')"> 
+                  <p ng-style="{color:type.couleur}"> {{ type.type_name  }} </p>
+                </md-checkbox>
+              </div>                        
+            </md-list-item>
+          </md-list>
+          <md-list  >
+            <md-subheader class="md-no-sticky">Agents</md-subheader>
+            <md-divider ></md-divider>
+            <md-list-item > 
+              <div class="md-list-item-text" layout="column">
+                <md-checkbox
+                    ng-checked="isChecked(agselected,agents)"
+                   md-indeterminate="isIndeterminate(agselected,agents)"
+                   ng-click="toggleAll(agselected,agents,'agselected')">Select All
+                </md-checkbox>
+              </div>
+
+            </md-list-item>
+           
+            <md-list-item  ng-repeat="agent in agents">
+              <div class="md-list-item-text" layout="column">
+                <md-checkbox class="green"  
+                  ng-checked="exists(agent, agselected)"
+                  ng-click="toggle(agent, agselected,'agselected')">  
+                  <p> {{ agent.name  }}</p> 
+                </md-checkbox> 
+              </div>
+            </md-list-item>
+          </md-list>
+        </div>
+        <div layout="row"  >
+          <md-list>
+           <md-subheader class="md-no-sticky">Timing</md-subheader>
+            <md-divider ></md-divider>
+            <md-list-item> 
+              <div class="md-list-item-text" layout="column">
+                <p>Selected Value: <span class="radioValue">{{ times.name }}</span></p>
+
+                <md-radio-group ng-model="times" ng-click="onChange()" class="md-primary">
+                  <md-radio-button ng-repeat="time in timing"
+                         ng-value="time"
+                         ng-class="{'md-align-top-left': $index==1}" >{{time.name}}
+                  </md-radio-button>
+                </md-radio-group>
+              </div>
+            </md-list-item>
+            <md-divider ></md-divider>
+            <md-list-item>
+              <md-button class="md-raised md-primary md-hue-1" ng-click="InitTiming()">
+                <md-icon md-svg-src="images/icons/ic_close_white_24px.svg"></md-icon>Reset
+              </md-button>
+            </md-list-item>
+          </md-list>
+          <md-list ng-show="times.isAnnuel || times.isMensuel">
+           <md-subheader class="md-no-sticky">Modes</md-subheader>
+            <md-divider ></md-divider>
+            <div layout="row" >
+              <md-list-item> 
+                <div class="md-list-item-text" layout="column">
+                  <p>Selected Value: <span class="radioValue">{{ mod.name }}</span></p>
+
+                  <md-radio-group ng-model="mod" class="md-primary" ng-change="onModeChange(mod,$event)">
+                    <md-radio-button ng-repeat="mode in modes"
+                           ng-value="mode"
+                           
+                           ng-class="{'md-align-top-left': $index==1}" >{{mode.name}}
+                    </md-radio-button>
+                  </md-radio-group>
+                </div>
+              </md-list-item>
+              <span flex></span>
+              <md-list-item ng-show="times.isAnnuel && mod.isHebdo"> 
+                <div class="md-list-item-text" layout="column">
+                  <p>Selected Value: <span class="radioValue">{{ Mod2.isMultiple }}</span></p>
+
+                  <md-radio-group ng-model="Mod2" class="md-primary" ng-change="onModeChange(Mod2,$event)">
+                    <md-radio-button ng-repeat="mode in Modes"
+                           ng-value="mode"
+                          
+                           ng-class="{'md-align-top-left': $index==2}" >{{mode.name}}
+                    </md-radio-button>
+                  </md-radio-group>
+                </div>
+              </md-list-item>
+            </div>
+            
+             <md-divider ></md-divider>
+            <md-list-item> 
+              <div class="md-list-item-text" layout="column">
+                <p>Selected Value: <span class="radioValue">{{ Mod.isMultiple }}</span></p>
+
+                <md-radio-group ng-model="Mod" class="md-primary" ng-change="onModeChange(Mod,$event)">
+                  <md-radio-button ng-repeat="mode in Modes"
+                         ng-value="mode"
+                        
+                         ng-class="{'md-align-top-left': $index==2}" >{{mode.name}}
+                  </md-radio-button>
+                </md-radio-group>
+              </div>
+            </md-list-item>
+          </md-list>
+          <div layout="row" layout-align="space-around start">
+            <md-input-container class="md-block" flex-gt-sm ng-show="times.isAnnuel ">
+              <label>Mois</label>
+              <md-select ng-model="m"  ng-multiple="{{Mod.isMultiple}}"  
+              md-on-close="{{Mod.isMultiple}}?  close({{Mod.isMultiple}}):close(!{{Mod.isMultiple}})" >
+              <md-option ng-repeat="m in mois" ng-value="m">
+                {{m.name}}
+               
+              </md-option>
+              </md-select>         
+            </md-input-container>
+            <md-input-container class="md-block"  flex-gt-sm ng-show="mod.isHebdo || times.isHebdo">
+              <label>Jours</label>
+              <md-select ng-model="j" ng-multiple="{{Mod.isMultiple}}"  
+               md-on-close="{{Mod.isMultiple}}?  close({{Mod.isMultiple}}):close(!{{Mod.isMultiple}})">
+              <md-option ng-repeat="j in jours" ng-value="j">
+                {{j.name}}
+               
+              </md-option>
+              </md-select>         
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm ng-show="mod.isJour">
+              <label>Jours</label>
+              <md-select ng-model="d"  ng-multiple="true"  md-on-close="close(false)">
+                <md-option ng-repeat="d in days" ng-value="d">
+                  {{d}}
+                 
+                </md-option>
+              </md-select>         
+            </md-input-container>
+            
+            <md-input-container class="md-block" flex-gt-sm ng-show="mod.isHebdo " >
+              <label>Occurences</label>
+              <md-select ng-model="o" ng-multiple="{{Mod.isMultiple}}" 
+                md-on-close="close(false)">
+                <md-option ng-repeat="o in occurences" ng-value="o">
+                  {{o.name}}
+                 
+                </md-option>
+              </md-select>         
+              
+            </md-input-container>
+            
+          </div>
+          
+
+        </div>
+        <p>Selected Value: <span class="radioValue">{{ choix }}</span></p>
+      </div>
+    </md-content>
+    <div layout="row">
+     
+      <md-button class="md-raised md-primary md-hue-1" ng-click="answer(' useful')">
+        <md-icon md-svg-src="images/icons/ic_account_box_w.svg"></md-icon>{{form.valider}}  
+      </md-button>
+      <md-button class="md-raised md-warn" ng-click="Init();answer('not useful')">          
+        <md-icon md-svg-src="images/icons/ic_close_white_24px.svg"></md-icon>{{form.annuler}}
+      </md-button>
+      
+    </div>
+  </form>
+</div>-->
+

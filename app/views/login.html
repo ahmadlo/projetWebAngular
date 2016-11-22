@@ -1,0 +1,117 @@
+
+     <!-- Add your site or application content here 
+
+
+    <div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <h1>Login</h1>
+
+    <div class="well" ng-hide="vm.is_authenticated">
+
+      <form role="form" ng-submit="vm.login()">
+        <div class="alert alert-danger" ng-show="error" ng-bind="error"></div>
+
+        <div class="form-group">
+          <label for="login__email">Login</label>
+          <input type="text" class="form-control" id="login__email" ng-model="vm.username" placeholder="ex. my login" />
+        </div>
+
+        <div class="form-group">
+          <label for="login__password">Password</label>
+          <input type="password" class="form-control" id="login__password" ng-model="vm.password" placeholder="ex. my password" />
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+        <div  ng-cloak layout-wrap layout-margin layout-align="center" >
+  <md-content class="md-padding" layout-xs="column" layout="row">
+    <div flex-xs flex-gt-xs="40" layout="column">
+-->
+    <md-dialog aria-label="Mango (Fruit)"  ng-cloak >
+       <form name="projectForm" ng-submit="vm.login()">
+  <md-toolbar>
+      <div class="md-toolbar-tools">
+       <h1>Login</h1>
+        <span flex="50"></span>
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-svg-src="images/icons/ic_close_white_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+    <div class="md-dialog-content" >
+        <span flex="50"></span>
+
+ <md-input-container class="md-block" flex-gt-sm>
+            <label>First name</label>
+            <input ng-model="vm.username"  required name="firstName">
+             <div ng-messages="projectForm.firstName.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+          </md-input-container>
+        <span flex="50"></span>
+
+<md-input-container class="md-block" flex-gt-sm>
+            <label> Mot de Passe </label>
+            <input ng-model="vm.password"  required type="password" name="password">
+        <div ng-messages="projectForm.password.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+          </md-input-container>
+          <div class="md-dialog-content">
+                          </md-dialog-content>
+
+        <span flex="50"></span>
+
+          <md-dialog-actions layout="row">
+          <md-button class="md-raised md-primary md-hue-1" ng-click="vm.login()">          
+            <md-icon md-svg-src="images/icons/ic_account_box_w.svg"></md-icon>
+                Submit  
+          </md-button>
+    </md-dialog-actions>
+
+
+      
+            </form>
+                </md-dialog>
+  <!--
+<md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
+        More on Wikipedia
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="answer('not useful')">
+       Not Useful
+      </md-button>
+      <md-button ng-click="answer('useful')" style="margin-right:20px;">
+        Useful
+      </md-button>
+      <md-card layout-align="center">
+        <md-card-title>
+          <md-card-title-text layout-align="end center">
+          <h1> 
+            <span class="md-display-3" >Login</span></h1>
+          </md-card-title-text>
+        </md-card-title>
+  <md-card-content>
+           
+
+          
+            </md-card-content>
+          <md-card-actions layout="column" layout-align="end center">
+          
+        </md-card-actions>
+
+      </md-card>
+
+    </div>
+    
+  </md-content>
+</div>

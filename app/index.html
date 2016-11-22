@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+ 
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/nvd3/build/nv.d3.css" />
+    <link rel="stylesheet" href="bower_components/c3/c3.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+
+    <!-- endbuild -->
+   <!--  <link rel="stylesheet" href="styles/material.css" />-->
+   <link rel="stylesheet" href="styles/main.css" />
+  <body ng-app="projetwebApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+     <br>
+   <!-- <md-toolbar ng-controller="navbarCtrl">
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings"  ng-show="is_authenticated">
+          <md-icon md-svg-icon="images/icons/ic_menu_w.svg" > </md-icon>
+       
+        </md-button>
+         <h2 ng-show="is_authenticated">
+          <span>Mon Entrepise</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-raised md-primary md-hue-1" aria-label="Learn More"  ng-hide="is_authenticated" ng-click="showAdvanced($event)">          
+          <md-icon md-svg-src="images/icons/ic_lock_open_white_24px.svg"></md-icon>
+            Login
+
+          
+        </md-button>
+        <md-button class="md-raised md-primary" aria-label="Learn More" ng-show="is_authenticated" ng-click="logout()" md-hue-1>
+                  <md-icon md-svg-src="images/icons/ic_lock_outline_white_24px.svg"></md-icon>
+
+          Logout
+        </md-button>
+      </div>
+    </md-toolbar>-->
+
+   <!-- <nav class="navbar navbar-default" role="navigation" ng-controller="navbarCtrl" >
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#we-are-borg-navbar">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="icon-bar">fdsfd</span>
+        <span class="icon-bar">fdsf</span>
+        <span class="icon-bar">fdsf</span>
+      </button>-->
+     <!-- <a class="navbar-brand" href="#/" ng-show="is_authenticated">Mon Entrepise</a>
+    </div>  ./navbar-header 
+
+    <div class="collapse navbar-collapse" id="we-are-borg-navbar">
+      <ul class="nav navbar-nav pull-right" >
+        
+          <li><a href="#/login" ng-hide="is_authenticated">Login</a></li>
+          <li><a href="/register" ng-hide="is_authenticated">Register</a></li>
+            <li><a href="" ng-show="is_authenticated" ng-click="logout()">Logout</a></li>
+
+      </ul>-->
+   <!-- </div>  /.collapse.navbar-collapse -->
+  <!-- </div> /.container-fluid 
+</nav>-->
+
+    <div class="container">
+    <div ng-view=""></div>
+    </div>
+
+  <!--  <div class="footer">
+      <div class="container">
+        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+      </div>
+    </div>-->
+        <script src="https://maps.google.com/maps/api/js?v=3&key=AIzaSyA7mZ4cM_XBNPlo28nwl3xJW2DHxAPC2ok&libraries=drawing"></script>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID 
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>-->
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/ngmap/build/scripts/ng-map.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/autofill-event/src/autofill-event.js"></script>
+    <script src="bower_components/angular-base64/angular-base64.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/nvd3/build/nv.d3.js"></script>
+    <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+    <script src="bower_components/c3/c3.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/service/connexion.js"></script>
+        <script src="scripts/angular-c3js.js"></script>
+
+
+        <!-- endbuild -->
+</body>
+</html>

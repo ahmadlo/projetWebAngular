@@ -1,0 +1,64 @@
+    
+<form name="projectForm"  ng-show="is_marker">
+  <md-toolbar>
+      <div class="md-toolbar-tools" layout-wrap  layout-align="center">
+        <span flex="50"> <h1 >{{form.title}}</h1></span>
+      </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content" >
+
+      <span flex="50"></span>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>nom Lieu</label>
+        <input ng-model="client.cl_name"  required name="firstName">
+        <div ng-messages="projectForm.firstName.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+      <span flex="50"></span>
+      <md-input-container ng-show="ajout" class="md-block" flex-gt-sm>
+          <label>Email</label>
+          <input ng-model="client.email"  required name="email"  type="email">
+          <div ng-messages="projectForm.email.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+      </md-input-container>
+      <span flex="50"></span>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label> description</label>
+        <input ng-model="client.description"  required name="password" name="password">
+        <div ng-messages="projectForm.password.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+      <span flex="50"></span>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Categorie</label>
+        <md-select ng-model="type" required name="type">
+          <md-option ng-repeat="t in types" ng-value="t">
+              {{t.type_name}}
+             
+          </md-option>
+        </md-select>
+         <!-- {{type.type_name}}       -->  
+        <div ng-messages="projectForm.type.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+    </div>
+  </md-dialog-content>
+  <span flex="50"></span>
+  <md-dialog-actions layout="row">
+    <md-button class="md-raised md-primary md-hue-1" ng-click="ajout ?
+      AjoutClient(client,map,aa,type):ModifClient(client,latLng,map,marker,type)">
+      <md-icon md-svg-src="images/icons/ic_account_box_w.svg"></md-icon>{{form.valider}}  
+    </md-button>
+    <md-button class="md-raised md-warn" 
+      ng-click="ajout ? Annuler($event):Suppress($event,client,marker)">          
+      <md-icon md-svg-src="images/icons/ic_close_white_24px.svg"></md-icon>{{form.annuler}}
+    </md-button>
+  </md-dialog-actions>
+</form>
+
+      
